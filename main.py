@@ -1,5 +1,5 @@
 from flask import (Flask, render_template, session, redirect, url_for, request, jsonify,
-                   flash, get_flashed_messages)
+                   flash)
 import os
 import json
 import stripe
@@ -95,7 +95,7 @@ def create_checkout_session():
                     'product_data': {
                         'name': product['name'],
                     },
-                    'unit_amount': int(product['price'] * 100),  # в центах
+                    'unit_amount': int(product['price'] * 100),
                 },
                 'quantity': quantity,
             })
