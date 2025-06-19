@@ -1,0 +1,82 @@
+[
+    {
+        "id": "1",
+        "name": "Wireless Headphones",
+        "stock": 25,
+        "rating": 4.7,
+        "price": 79.99,
+        "image": "https://picsum.photos/300?random=1"
+    },
+    {
+        "id": "2",
+        "name": "Smartwatch",
+        "stock": 40,
+        "rating": 4.9,
+        "price": 199.99,
+        "image": "https://picsum.photos/300?random=2"
+    },
+    {
+        "id": "3",
+        "name": "Bluetooth Speaker",
+        "stock": 30,
+        "rating": 4.6,
+        "price": 49.5,
+        "image": "https://picsum.photos/300?random=3"
+    },
+    {
+        "id": "4",
+        "name": "Gaming Mouse",
+        "stock": 15,
+        "rating": 4.8,
+        "price": 59.99,
+        "image": "https://picsum.photos/300?random=4"
+    },
+    {
+        "id": "5",
+        "name": "4K Monitor",
+        "stock": 10,
+        "rating": 4.9,
+        "price": 349.0,
+        "image": "https://picsum.photos/300?random=5"
+    },
+    {
+        "id": "6",
+        "name": "Mechanical Keyboard",
+        "stock": 20,
+        "rating": 4.7,
+        "price": 89.99,
+        "image": "https://picsum.photos/300?random=6"
+    },
+    {
+        "id": "7",
+        "name": "USB-C Hub",
+        "stock": 50,
+        "rating": 4.5,
+        "price": 29.99,
+        "image": "https://picsum.photos/300?random=7"
+    },
+    {
+        "id": "8",
+        "name": "External SSD 1TB",
+        "stock": 18,
+        "rating": 4.9,
+        "price": 159.99,
+        "image": "https://picsum.photos/300?random=8"
+    },
+    {
+        "id": "9",
+        "name": "Noise Cancelling Earbuds",
+        "stock": 22,
+        "rating": 4.8,
+        "price": 129.99,
+        "image": "https://picsum.photos/300?random=9"
+    },
+    {
+        "id": "10",
+        "name": "Smart Home Camera",
+        "stock": 12,
+        "rating": 4.7,
+        "price": 99.99,
+        "image": "https://picsum.photos/300?random=10"
+    }
+]
