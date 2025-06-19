@@ -78,6 +78,7 @@
       </div>
     </div>
 
+    <!--  Cart  -->
     <div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="offcanvasCart" aria-labelledby="My Cart">
       <div class="offcanvas-header justify-content-center">
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
@@ -86,41 +87,31 @@
         <div class="order-md-last">
           <h4 class="d-flex justify-content-between align-items-center mb-3">
             <span class="text-primary">Your cart</span>
-            <span class="badge bg-primary rounded-pill">3</span>
+            <span class="badge bg-primary rounded-pill">{{ total_products_in_cart }}</span>
           </h4>
           <ul class="list-group mb-3">
+            {% for product in cart_items %}
             <li class="list-group-item d-flex justify-content-between lh-sm">
               <div>
-                <h6 class="my-0">Growers cider</h6>
-                <small class="text-body-secondary">Brief description</small>
+                <h6 class="my-0">{{ product['name'] }}</h6>
+                <small class="text-body-secondary">{{ product['quantity'] }} pcs x ${{ product['price'] }} </small>
               </div>
-              <span class="text-body-secondary">$12</span>
+              <span class="text-body-secondary">${{ product['subtotal'] }}</span>
             </li>
-            <li class="list-group-item d-flex justify-content-between lh-sm">
-              <div>
-                <h6 class="my-0">Fresh grapes</h6>
-                <small class="text-body-secondary">Brief description</small>
-              </div>
-              <span class="text-body-secondary">$8</span>
-            </li>
-            <li class="list-group-item d-flex justify-content-between lh-sm">
-              <div>
-                <h6 class="my-0">Heinz tomato ketchup</h6>
-                <small class="text-body-secondary">Brief description</small>
-              </div>
-              <span class="text-body-secondary">$5</span>
-            </li>
+            {% endfor %}
             <li class="list-group-item d-flex justify-content-between">
               <span>Total (USD)</span>
-              <strong>$20</strong>
+              <strong>${{ total }}</strong>
             </li>
           </ul>
-  
+
           <button class="w-100 btn btn-primary btn-lg" type="submit">Continue to checkout</button>
         </div>
       </div>
     </div>
-    
+    <!--  // Cart  -->
+    <!--  Search  -->
+
     <div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="offcanvasSearch" aria-labelledby="Search">
       <div class="offcanvas-header justify-content-center">
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
@@ -170,13 +161,14 @@
               </div>
             </div>
           </div>
-          
+              <!--  // Search  -->
+              <!--  Phone  -->
           <div class="col-sm-8 col-lg-4 d-flex justify-content-end gap-5 align-items-center mt-4 mt-sm-0 justify-content-center justify-content-sm-end">
             <div class="support-box text-end d-none d-xl-block">
               <span class="fs-6 text-muted">For Support?</span>
               <h5 class="mb-0">+000-00000000</h5>
             </div>
-
+            <!--  // Phone  -->
             <ul class="d-flex justify-content-end list-unstyled m-0">
               <li>
                 <a href="#" class="rounded-circle bg-light p-2 mx-1">
@@ -199,18 +191,19 @@
                 </a>
               </li>
             </ul>
-
+             <!--  Total Cart  -->
             <div class="cart text-end d-none d-lg-block dropdown">
               <button class="border-0 bg-transparent d-flex flex-column gap-2 lh-1" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasCart" aria-controls="offcanvasCart">
                 <span class="fs-6 text-muted dropdown-toggle">Your Cart</span>
-                <span class="cart-total fs-5 fw-bold">$1290.00</span>
+                <span class="cart-total fs-5 fw-bold">${{ total }}</span>
               </button>
             </div>
+            <!--  // Total Cart  -->
           </div>
 
         </div>
       </div>
-
+      <!--  // Products  -->
     <section class="py-5">
       <div class="container-fluid">
         
@@ -223,39 +216,42 @@
                 <div class="tab-pane fade show active" id="nav-all" role="tabpanel" aria-labelledby="nav-all-tab">
 
                   <div class="product-grid row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5">
-                  {% for product in products %}
-                    <div class="col">
-                      <div class="product-item">
-                        <span class="badge bg-success position-absolute m-3">-30%</span>
-                        <a href="#" class="btn-wishlist"><svg width="24" height="24"><use xlink:href="#heart"></use></svg></a>
-                        <figure>
-                          <a href="index.html" title="Product Title">
-                            <img src="{{ product['image'] }}"  class="tab-image">
-                          </a>
-                        </figure>
-                        <h3>{{ product['name'] }}</h3>
-                        <span class="qty">{{ product['stock'] }} Unit</span><span class="rating"><svg width="24" height="24" class="text-primary"><use xlink:href="#star-solid"></use></svg>{{ product['rating'] }}</span>
-                        <span class="price">${{ product['price'] }}</span>
-                        <div class="d-flex align-items-center justify-content-between">
-                          <div class="input-group product-qty">
-                              <span class="input-group-btn">
-                                  <button type="button" class="quantity-left-minus btn btn-danger btn-number" data-type="minus">
-                                    <svg width="16" height="16"><use xlink:href="#minus"></use></svg>
-                                  </button>
-                              </span>
-                              <input type="text" id="quantity" name="quantity" class="form-control input-number" value="1">
-                              <span class="input-group-btn">
-                                  <button type="button" class="quantity-right-plus btn btn-success btn-number" data-type="plus">
-                                      <svg width="16" height="16"><use xlink:href="#plus"></use></svg>
-                                  </button>
-                              </span>
+                   {% for product in products %}
+                      <form action="{{ url_for('add_to_card', product_id=product['id']) }}" method="post" class="d-flex align-items-center justify-content-between">
+                        <div class="col">
+                          <div class="product-item">
+                            <span class="badge bg-success position-absolute m-3">-30%</span>
+                            <a href="#" class="btn-wishlist"><svg width="24" height="24"><use xlink:href="#heart"></use></svg></a>
+                            <figure>
+                              <a href="index.html" title="Product Title">
+                                <img src="{{ product['image'] }}"  class="tab-image">
+                              </a>
+                            </figure>
+                            <h3>{{ product['name'] }}</h3>
+                            <span class="qty">{{ product['stock'] }} Unit</span><span class="rating"><svg width="24" height="24" class="text-primary"><use xlink:href="#star-solid"></use></svg>{{ product['rating'] }}</span>
+                            <span class="price">${{ product['price'] }}</span>
+                            <div class="d-flex align-items-center justify-content-between">
+                              <div class="input-group product-qty">
+                                  <span class="input-group-btn">
+                                      <button type="button" class="quantity-left-minus btn btn-danger btn-number" data-type="minus">
+                                        <svg width="16" height="16"><use xlink:href="#minus"></use></svg>
+                                      </button>
+                                  </span>
+                                  <input type="text" id="quantity" name="quantity" class="form-control input-number" value="1">
+                                  <span class="input-group-btn">
+                                      <button type="button" class="quantity-right-plus btn btn-success btn-number" data-type="plus">
+                                          <svg width="16" height="16"><use xlink:href="#plus"></use></svg>
+                                      </button>
+                                  </span>
+                              </div>
+                              <button type="submit" class="btn btn-primary ms-2">
+                                Add to Cart <iconify-icon icon="uil:shopping-cart"></iconify-icon>
+                              </button>
+                            </div>
                           </div>
-                          <a href="#" class="nav-link">Add to Cart <iconify-icon icon="uil:shopping-cart"></a>
                         </div>
-                      </div>
-                    </div>
+                      </form>
                     {% endfor %}
-
                 </div>
 
                   <!-- / product-grid -->
@@ -269,6 +265,7 @@
         </div>
       </div>
     </section>
+      <!--  // Products  -->
 
     <section class="py-5">
       <div class="container-fluid">
